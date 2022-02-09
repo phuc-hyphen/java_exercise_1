@@ -9,8 +9,29 @@ public class Launcher {
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
         while (!text.equals("quit")) {
-            System.out.println("Unknown command");
+            if (text.equals("fibo")) {
+                System.out.println("Please enter a number");
+                int number = scanner.nextInt();
+                scanner.nextLine();
+                System.out.format("value of the Fibonacci sequence at the index %d is %d \n", number, fibo(number));
+            } else {
+                System.out.println("Unknown command");
+            }
+            System.out.println("What is your command");
             text = scanner.nextLine();
         }
     }
+
+    public static int fibo(int number) {
+        int a = 0;
+        int sum = 0;
+        int b = 1;
+        for (int i = 0; i < number; i++) {
+            sum = a + b;
+            a = b;
+            b = sum;
+        }
+        return sum;
+    }
+
 }
