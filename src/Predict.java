@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Predict implements Command{
     @Override
     public String name() {
-        return null;
+        return "predict";
     }
 
     @Override
