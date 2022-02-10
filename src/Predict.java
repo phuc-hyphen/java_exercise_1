@@ -11,12 +11,13 @@ public class Predict implements Command {
     public String name() {
         return "predict";
     }
-///home/huu-phuc-le/java_exercise_1/text.txt
+
+    ///home/huu-phuc-le/java_exercise_1/text.txt
     @Override
     public boolean run(Scanner scanner) {
         System.out.println("Where is the file ?(Please enter the path to the file):");
         String path = scanner.nextLine();
-        Predict.predict_text(path,scanner);
+        Predict.predict_text(path, scanner);
         return true;
     }
 
@@ -24,43 +25,44 @@ public class Predict implements Command {
         String data = "";
         try {
             data = new String(Files.readAllBytes(Paths.get(path)));
+
+            data = data.toLowerCase();
+            data = data.replaceAll("[^a-zA-Z0-9] ", "");
+            String[] words = data.split(" ");
+
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].isBlank()) {//shifting elements
+                    System.arraycopy(words, i + 1, words, i, words.length - 1 - i);
+                }
+            }
+
+            Stream<String> stream_word = Arrays.stream(words);
+            String word = get_word(scanner);
+//
+            String finalWord = word;
+            if (stream_word.noneMatch(s -> s.contains(finalWord))) {
+                System.out.println("Word doesn't exist !!");
+                return;
+            }
+            List<String> second_words = new ArrayList<>();
+            second_words.add(word);
+            String second;
+            for (int i = 0; i < 20; i++) {
+                second = get_second_word(words, word);
+//            System.out.println(second);
+                second_words.add(second);
+                word = second;
+            }
+            StringJoiner joiner = new StringJoiner(" ");
+            for (String ele : second_words) {
+                joiner.add(ele);
+            }
+            String result = joiner.toString();
+
+            System.out.println(result);
         } catch (IOException x) {
             System.err.format("Unreadable file: %s%n", x);
         }
-        data = data.toLowerCase();
-        data = data.replaceAll("[^a-zA-Z0-9] ", "");
-        String[] words = data.split(" ");
-
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].isBlank()) {//shifting elements
-                System.arraycopy(words, i + 1, words, i, words.length - 1 - i);
-            }
-        }
-
-        Stream<String> stream_word = Arrays.stream(words);
-        String word = get_word(scanner);
-//
-        String finalWord = word;
-        if (stream_word.noneMatch(s -> s.contains(finalWord))) {
-            System.out.println("Word doesn't exist !!");
-            return;
-        }
-        List<String> second_words = new ArrayList<>();
-        second_words.add(word);
-        String second;
-        for (int i = 0; i < 20; i++) {
-            second = get_second_word(words, word);
-//            System.out.println(second);
-            second_words.add(second);
-            word = second;
-        }
-        StringJoiner joiner = new StringJoiner(" ");
-        for (String ele : second_words) {
-            joiner.add(ele);
-        }
-        String result = joiner.toString();
-
-        System.out.println(result);
     }
 
     public static String get_word(Scanner scanner) {
