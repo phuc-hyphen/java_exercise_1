@@ -37,13 +37,15 @@ public class Predict implements Command {
             }
 
             Stream<String> stream_word = Arrays.stream(words);
-            String word = get_word(scanner);
+            System.out.println("which word you are going to type ? :");
+            String word = scanner.nextLine();
+            word = word.toLowerCase();
 //
-//            String finalWord = word;
-//            if (stream_word.noneMatch(s -> s.contains(finalWord))) {
-//                System.out.println("Word doesn't exist !!");
-//                return;
-//            }
+            String finalWord = word;
+            if (stream_word.noneMatch(s -> s.contains(finalWord))) {
+                System.out.println("Word doesn't exist !!");
+                return;
+            }
             List<String> second_words = new ArrayList<>();
             second_words.add(word);
             String second;
@@ -65,10 +67,6 @@ public class Predict implements Command {
         }
     }
 
-    public static String get_word(Scanner scanner) {
-        System.out.println("which word you are going to type ? :");
-        return scanner.nextLine();
-    }
 
     public static String get_second_word(String[] words, String word) {
         List<String> second_word = new ArrayList<>();
