@@ -39,11 +39,11 @@ public class Predict implements Command {
             Stream<String> stream_word = Arrays.stream(words);
             String word = get_word(scanner);
 //
-            String finalWord = word;
-            if (stream_word.noneMatch(s -> s.contains(finalWord))) {
-                System.out.println("Word doesn't exist !!");
-                return;
-            }
+//            String finalWord = word;
+//            if (stream_word.noneMatch(s -> s.contains(finalWord))) {
+//                System.out.println("Word doesn't exist !!");
+//                return;
+//            }
             List<String> second_words = new ArrayList<>();
             second_words.add(word);
             String second;
