@@ -16,9 +16,10 @@ public class Fibo implements Command {
     }
 
     private static int fibo(int number) {
-        if (number == 0 || number == 1)
-            return 1;
-        return fibo(number - 1) + fibo(number - 2);
+        if(number >= 2)
+            return fibo(number - 1) + fibo(number - 2);
+        else
+            return number;
     }
 
 }
